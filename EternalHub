@@ -5519,5 +5519,3 @@ function UILibrary.Section:Dropdown(sett, callback)
 end
 
 return UILibrary
-
-hydrahub
