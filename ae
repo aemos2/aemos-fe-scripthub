@@ -17,30 +17,31 @@ local players = cloneref(game:GetService("Players"))
 local mouse = players.LocalPlayer:GetMouse()
 
 library.theme = {
-	fontsize = 17, 
-	titlesize = 18, 
-	font = Enum.Font.SourceSans, -- Changed to a font that has lowercase styling
-	background = "rbxassetid://0", 
-	tilesize = 90, 
-	cursor = false, 
-	cursorimg = "https://t0.rbxcdn.com/42f66da98c40252ee151326a82aab51f", 
-	backgroundcolor = Color3.fromRGB(25, 25, 25), 
-	tabstextcolor = Color3.fromRGB(240, 240, 240), 
-	bordercolor = Color3.fromRGB(85, 180, 255), 
-	accentcolor = Color3.fromRGB(240, 240, 240), 
-	accentcolor2 = Color3.fromRGB(150, 150, 150), 
-	outlinecolor = Color3.fromRGB(25, 25, 25), 
-	outlinecolor2 = Color3.fromRGB(35, 35, 35), 
-	sectorcolor = Color3.fromRGB(40, 40, 40), 
-	toptextcolor = Color3.fromRGB(255, 255, 255), 
-	topheight = 48, 
-	topcolor = Color3.fromRGB(45, 45, 45), 
-	topcolor2 = Color3.fromRGB(20, 20, 20), 
-	buttoncolor = Color3.fromRGB(60, 60, 60), 
-	buttoncolor2 = Color3.fromRGB(40, 40, 40), 
-	itemscolor = Color3.fromRGB(200, 200, 200), 
-	itemscolor2 = Color3.fromRGB(255, 255, 255)
+    fontsize = 16, -- Slightly reduced for cleaner UI
+    titlesize = 20, -- Slightly increased for better title emphasis
+    font = Enum.Font.Gotham, -- Modern font with clear uppercase and lowercase
+    background = "rbxassetid://0", -- Use appropriate asset ID for custom background
+    tilesize = 100, -- Increased to better fit UI proportions
+    cursor = true, -- Enabled custom cursor
+    cursorimg = "https://t0.rbxcdn.com/42f66da98c40252ee151326a82aab51f", -- Cursor image
+    backgroundcolor = Color3.fromRGB(30, 30, 30), -- Darker background for better contrast
+    tabstextcolor = Color3.fromRGB(220, 220, 220), -- Softer text color for tabs
+    bordercolor = Color3.fromRGB(70, 170, 230), -- Refined border color to fit the theme
+    accentcolor = Color3.fromRGB(255, 170, 60), -- Warm accent color for highlights
+    accentcolor2 = Color3.fromRGB(140, 140, 140), -- Neutral secondary accent for balance
+    outlinecolor = Color3.fromRGB(40, 40, 40), -- Darker outline for improved visibility
+    outlinecolor2 = Color3.fromRGB(50, 50, 50), -- Slight contrast for layered outlines
+    sectorcolor = Color3.fromRGB(50, 50, 50), -- Sector background color for consistency
+    toptextcolor = Color3.fromRGB(255, 255, 255), -- Bright white for top text clarity
+    topheight = 50, -- Adjusted top height for improved spacing
+    topcolor = Color3.fromRGB(50, 50, 50), -- Matching top bar with theme
+    topcolor2 = Color3.fromRGB(30, 30, 30), -- Gradient for a sleek top bar look
+    buttoncolor = Color3.fromRGB(70, 70, 70), -- Slightly lighter button color for visibility
+    buttoncolor2 = Color3.fromRGB(50, 50, 50), -- Secondary button color for depth
+    itemscolor = Color3.fromRGB(230, 230, 230), -- Lightened item text for better contrast
+    itemscolor2 = Color3.fromRGB(255, 255, 255) -- White for emphasis on selected items
 }
+
 
 if library.theme.cursor then
 	local success = pcall(function()
