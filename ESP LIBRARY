@@ -42,13 +42,16 @@ function ESP:Clear()
     ESP.Names = {}
 end
 
-function ESP:DrawBox(player, position, size, color)
+function ESP:DrawBox(player, top, bottom, color)
     if not ESP.Boxes[player] then
         ESP.Boxes[player] = CreateDrawing("Square", {Color = color, Thickness = 2, Filled = false})
     end
 
-    ESP.Boxes[player].Size = size
-    ESP.Boxes[player].Position = position
+    local height = (top - bottom).Y
+    local width = height / 2
+
+    ESP.Boxes[player].Size = Vector2.new(width, height)
+    ESP.Boxes[player].Position = Vector2.new(top.X - width / 2, top.Y)
     ESP.Boxes[player].Visible = true
 end
 
@@ -81,31 +84,32 @@ function ESP:UpdatePlayer(player)
     local distance = (LocalPlayer.Character.HumanoidRootPart.Position - humanoidRootPart.Position).Magnitude
     if distance > ESP.Settings.MaxDistance then return end
 
+    local head = character:FindFirstChild("Head")
     local position, visible = Camera:WorldToViewportPoint(humanoidRootPart.Position)
-    if visible then
+    local topPosition, topVisible = Camera:WorldToViewportPoint((head and head.Position or humanoidRootPart.Position) + Vector3.new(0, 1.5, 0))
+    local bottomPosition, bottomVisible = Camera:WorldToViewportPoint(humanoidRootPart.Position - Vector3.new(0, 3, 0))
+    
+    if visible and topVisible and bottomVisible then
         local color = player.TeamColor.Color or Color3.new(1, 1, 1)
         
         -- Box ESP
         if ESP.Settings.BoxESP then
-            local headPos = Camera:WorldToViewportPoint(character.Head.Position)
-            local legPos = Camera:WorldToViewportPoint(humanoidRootPart.Position - Vector3.new(0, 3, 0))
-            local size = Vector2.new(1000 / distance, (headPos - legPos).Y)
-            ESP:DrawBox(player, Vector2.new(headPos.X - size.X / 2, headPos.Y), size, color)
+            ESP:DrawBox(player, topPosition, bottomPosition, color)
         end
         
         -- Name ESP
         if ESP.Settings.NameESP then
-            ESP:DrawName(player, Vector2.new(position.X, position.Y - 30), player.Name, color)
+            ESP:DrawName(player, Vector2.new(topPosition.X, topPosition.Y - 15), player.Name, color)
         end
         
         -- Distance ESP
         if ESP.Settings.DistanceESP then
-            ESP:DrawName(player, Vector2.new(position.X, position.Y - 10), string.format("[%d]", math.floor(distance)), color)
+            ESP:DrawName(player, Vector2.new(topPosition.X, topPosition.Y), string.format("[%d]", math.floor(distance)), color)
         end
         
         -- Tracer ESP
         if ESP.Settings.TracerESP then
-            ESP:DrawTracer(player, Vector2.new(position.X, position.Y), color)
+            ESP:DrawTracer(player, bottomPosition, color)
         end
     end
 end
