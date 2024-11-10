@@ -1,0 +1,149 @@
+local ESP = {}
+ESP.__index = ESP
+
+-- Services  
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local Lighting = game:GetService("Lighting")
+
+-- Default Settings  
+ESP.Settings = {
+    Enabled = true,
+    TeamCheck = true,
+    MaxDistance = 200,
+    FontSize = 11,
+    FadeOut = {
+        OnDistance = true,
+        OnDeath = false,
+        OnLeave = false,
+    },
+    Options = {
+        Teamcheck = false,
+        TeamcheckRGB = Color3.fromRGB(0, 255, 0),
+        Friendcheck = true,
+        FriendcheckRGB = Color3.fromRGB(0, 255, 0),
+        Highlight = false,
+        HighlightRGB = Color3.fromRGB(255, 0, 0),
+    },
+}
+
+-- Drawing Elements  
+ESP.Drawing = {
+    Chams = {
+        Enabled = true,
+        Thermal = true,
+        FillRGB = Color3.fromRGB(119, 120, 255),
+        Fill_Transparency = 100,
+        OutlineRGB = Color3.fromRGB(119, 120, 255),
+        Outline_Transparency = 100,
+        VisibleCheck = true,
+    },
+    Names = {
+        Enabled = true,
+        RGB = Color3.fromRGB(255, 255, 255),
+    },
+    Flags = {
+        Enabled = true,
+    },
+    Distances = {
+        Enabled = true, 
+        Position = "Text",
+        RGB = Color3.fromRGB(255, 255, 255),
+    },
+    Weapons = {
+        Enabled = true,
+        WeaponTextRGB = Color3.fromRGB(119, 120, 255),
+        Outlined = false,
+        Gradient = false,
+        GradientRGB1 = Color3.fromRGB(255, 255, 255),
+        GradientRGB2 = Color3.fromRGB(119, 120, 255),
+    },
+    Healthbar = {
+        Enabled = true,  
+        HealthText = true,
+        Lerp = false,
+        HealthTextRGB = Color3.fromRGB(119, 120, 255),
+        Width = 2.5,
+        Gradient = true,
+        GradientRGB1 = Color3.fromRGB(200, 0, 0),
+        GradientRGB2 = Color3.fromRGB(60, 60, 125),
+        GradientRGB3 = Color3.fromRGB(119, 120, 255),
+    },
+    Boxes = {
+        Animate = true,
+        RotationSpeed = 300,
+        Gradient = false,
+        GradientRGB1 = Color3.fromRGB(119, 120, 255),
+        GradientRGB2 = Color3.fromRGB(0, 0, 0), 
+        GradientFill = true,
+        GradientFillRGB1 = Color3.fromRGB(119, 120, 255),
+        GradientFillRGB2 = Color3.fromRGB(0, 0, 0), 
+        Filled = {
+            Enabled = true,
+            Transparency = 0.75,
+            RGB = Color3.fromRGB(0, 0, 0),
+        },
+        Full = {
+            Enabled = true,
+            RGB = Color3.fromRGB(255, 255, 255),
+        },
+        Corner = {
+            Enabled = true,
+            RGB = Color3.fromRGB(255, 255, 255),
+        },
+    },
+}
+
+-- Weapon Icons  
+ESP.Weapon_Icons = {
+    ["Wooden Bow"] = "http://www.roblox.com/asset/?id=17677465400",
+    ["Crossbow"] = "http://www.roblox.com/asset/?id=17677473017",
+    ["Salvaged SMG"] = "http://www.roblox.com/asset/?id=17677463033",
+    ["Salvaged AK47"] = "http://www.roblox.com/asset/?id=17677455113",
+    ["Salvaged AK74u"] = "http://www.roblox.com/asset/?id=17677442346",
+    ["Salvaged M14"] = "http://www.roblox.com/asset/?id=17677444642",
+    ["Salvaged Python"] = "http://www.roblox.com/asset/?id=17677451737",
+    ["Military PKM"] = "http://www.roblox.com/asset/?id=17677449448",
+    ["Military M4A1"] = "http://www.roblox.com/asset/?id=17677479536",
+    ["Bruno's M4A1"] = "http://www.roblox.com/asset/?id=17677471185",
+    ["Military Barrett"] = "http://www.roblox.com/asset/?id=17677482998",
+    ["Salvaged Skorpion"] = "http://www.roblox.com/asset/?id=17677459658",
+    ["Salvaged Pump Action"] = "http://www.roblox.com/asset/?id=17677457186",
+    ["Military AA12"] = "http://www.roblox.com/asset/?id=17677475227",
+    ["Salvaged Break Action"] = "http://www.roblox.com/asset/?id=17677468751",
+}
+
+-- Constructor  
+function ESP.new()
+    local self = setmetatable({}, ESP)
+    self.Player = Players.LocalPlayer  
+    self.Camera = Workspace.CurrentCamera  
+    return self  
+end
+
+-- Enable or disable the ESP  
+function ESP:Toggle(enable)
+    self.Settings.Enabled = enable  
+end
+
+-- Update ESP settings  
+function ESP:UpdateSettings(newSettings)
+    for key, value in pairs(newSettings) do  
+        if self.Settings[key] ~= nil then  
+            self.Settings[key] = value  
+        end  
+    end  
+end
+
+-- Main ESP Loop  
+function ESP:Run()
+    RunService.RenderStepped:Connect(function()
+        if not self.Settings.Enabled then return end  
+        -- Logic to render ESP components...
+        -- Example: Update drawing elements, check visibility, etc.
+    end)
+end
+
+return ESP
